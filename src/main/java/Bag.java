@@ -5,6 +5,8 @@
  * 1. Introduction to Java helpful.
  */
 
+import java.util.Arrays;
+
 public abstract class Bag {
     /*
      * TODO: Create the following private instance variables
@@ -34,7 +36,7 @@ public abstract class Bag {
         this.color = color;
         this.capacity = capacity;
         this.numberOfContents = 0;
-        this.contents = new String[numberOfContents];
+        this.contents = new String[capacity];
 
     }
 
@@ -102,15 +104,16 @@ public abstract class Bag {
      *
      * If there are no items in this Bag, return null.
      *
-     * @return
+     * @return null or String item that been popped out.
      */
     public String popItem(){
         if (this.numberOfContents == 0) {
             return null;
         }
         int index = this.getNumberOfContents() - 1;
-        String item = new String (this.contents[index]);
+        String item = this.contents[index];
         this.contents[index] = null;
+        this.numberOfContents = index;
         return item;
     }
 
@@ -127,11 +130,8 @@ public abstract class Bag {
         // TODO: Implement this method.
         int old_cap = this.getCapacity();
         int new_capacity = old_cap + n;
+        String [] new_content = Arrays.copyOf(this.contents, new_capacity);
         this.capacity = new_capacity;
-        String[] new_content = new String[new_capacity];
-        for (int idx = 0; idx < old_cap; idx ++) {
-            new_content[idx] = this.contents[idx];
-        }
         this.contents = new_content;
     }
 
